@@ -1,5 +1,9 @@
 @import "../../scss/config";
 
+.block {
+  @include make-spacer('mb', 4)
+}
+
 .sort {
   @include flex(center);
 

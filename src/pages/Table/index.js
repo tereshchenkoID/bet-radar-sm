@@ -43,6 +43,9 @@ const Table = () => {
                         ?
                             <Loader />
                         :
+                            data.results &&
+                            data.results[type].tables[0] &&
+                            data.results[type].tables[0].length > 0 &&
                             <>
                                 <div className={style.sort}>
                                     <button

@@ -1,5 +1,9 @@
 @import "../../scss/config";
 
+.block {
+  @include make-spacer('mb', 4)
+}
+
 .panel {
   @include make-spacer('mb', 4);
 
@@ -65,12 +69,8 @@
   span {
     margin: 0 2px;
 
-    &.d {
-      color: var(--color-primary);
-    }
-
     &.l {
-      color: var(--color-red);
+      color: var(--text-for-material);
     }
   }
 }
@@ -93,13 +93,5 @@
 
   &.l {
     background-color: var(--red);
-  }
-}
-
-.link {
-  color: var(--color-primary);
-
-  &:hover {
-    text-decoration: underline;
   }
 }
