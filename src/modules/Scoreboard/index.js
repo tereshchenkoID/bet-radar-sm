@@ -10,7 +10,6 @@ import Loader from "../../components/Loader";
 import style from './index.module.scss';
 
 const Scoreboard = () => {
-    //5174491
     const {id} = useParams()
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(false);
@@ -40,7 +39,7 @@ const Scoreboard = () => {
                     <div className={style.head}>
                         <div className={style.league}>
                             <div className={style.country}>
-                                <img src={`https://assets.betsapi.com/v2/images/flags/${data.results[0].league.cc}.svg`} alt=""/>
+                                <img src={`https://www.matchtracker.live/v2/images/flags/${data.results[0].league.cc}.svg`} alt=""/>
                             </div>
                             <p>{data.results[0].league.name}</p>
                             <hr className={style.divider} />
@@ -67,7 +66,7 @@ const Scoreboard = () => {
                         <div className={style.cell}>
                             <div className={style.logo}>
                                 <img
-                                    src={`https://assets.b365api.com/images/team/b/${data.results[0].home.image_id}.png`}
+                                    src={`https://www.matchtracker.live/images/team/b/${data.results[0].home.image_id}.png`}
                                     alt={data.results[0].home.name}
                                 />
                             </div>
@@ -85,14 +84,14 @@ const Scoreboard = () => {
                         <div className={style.cell}>
                             <div className={style.logo}>
                                 <img
-                                    src={`https://assets.b365api.com/images/team/b/${data.results[0].away.image_id}.png`}
+                                    src={`https://www.matchtracker.live/images/team/b/${data.results[0].away.image_id}.png`}
                                     alt={data.results[0].away.name}
                                 />
                             </div>
                             <div className={style.nickname}>{data.results[0].away.name}</div>
                             <div className={style.manager}>
                                 <div className={style.country}>
-                                    <img src={`https://assets.betsapi.com/v2/images/flags/${data.results[0].extra.away_manager.cc}.svg`} alt=""/>
+                                    <img src={`https://www.matchtracker.live/v2/images/flags/${data.results[0].extra.away_manager.cc}.svg`} alt=""/>
                                 </div>
                                 <p>{data.results[0].extra.away_manager.name}</p>
                             </div>

@@ -2,6 +2,8 @@
 
 .block {
   @include make-spacer('mb', 4);
+
+  text-transform: capitalize;
 }
 
 .head,

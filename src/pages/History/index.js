@@ -74,12 +74,7 @@ const History = () => {
                                                 key={idx}
                                             >
                                                 <div className={style.cell}>
-                                                    <a
-                                                        href={`${el.league.id}`}
-                                                        className={style.link}
-                                                    >
-                                                        {el.league.name}
-                                                    </a>
+                                                    <p>{el.league.name}</p>
                                                 </div>
                                                 <div className={style.cell}>{convertTime(el.time)}</div>
                                                 <div className={style.cell}>

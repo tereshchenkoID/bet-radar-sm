@@ -1,4 +1,5 @@
 import {useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
 import classNames from "classnames";
 
 import axios from 'axios';
@@ -11,11 +12,16 @@ import Navigation from "../../modules/Navigation";
 import style from './index.module.scss';
 
 const Table = () => {
+    const { theme } = useParams()
+
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
     const [type, setType] = useState('overall')
 
     const league = localStorage.getItem('league')
+
+    localStorage.setItem('theme', theme)
+    document.querySelector('html').setAttribute('theme', localStorage.getItem('theme'))
 
     useEffect(() => {
         axios.get(`https://matchtracker.live/api/table/${league}`)
@@ -87,7 +93,7 @@ const Table = () => {
                                                     <div className={style.team}>
                                                         <div className={style.logo}>
                                                             <img
-                                                                src={`https://assets.betsapi.com/images/team/s/${el.team.image_id}.png`}
+                                                                src={`https://www.matchtracker.live/images/team/b/${el.team.image_id}.png`}
                                                                 alt={el.team.name}
                                                             />
                                                         </div>

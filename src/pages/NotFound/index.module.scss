@@ -1,0 +1,13 @@
+@import "../../scss/config";
+
+.block {
+  @include make-spacer('py', 4);
+
+  text-align: center;
+}
+
+.title {
+  @include make-spacer('mb', 2);
+
+  color: var(--text-for-material);
+}
