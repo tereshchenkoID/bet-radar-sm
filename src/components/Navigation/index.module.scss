@@ -1,0 +1,10 @@
+@import "../../scss/config";
+
+.block {
+  @include flex($align-items: center);
+  @include make-spacer('mx', auto);
+
+  background-color: var(--material);
+  border-bottom: 1px solid var(--border);
+  height: 45px;
+}

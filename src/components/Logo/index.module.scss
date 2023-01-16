@@ -1,0 +1,7 @@
+@import "../../scss/config";
+
+.block {
+  @include size(146px, 23px);
+
+  display: block;
+}
