@@ -1,0 +1,8 @@
+export const TYPES = {
+    SET_EVENT: "SET_EVENT",
+    GET_EVENT: "GET_EVENT",
+    SET_H2H: "SET_H2H",
+    GET_H2H: "GET_H2H",
+    SET_LEAGUE: "SET_LEAGUE",
+    GET_LEAGUE: "GET_LEAGUE"
+}

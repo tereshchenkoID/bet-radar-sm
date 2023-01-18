@@ -56,10 +56,10 @@
 
 .logo {
   @include make-spacer('p', 2);
-  @include size(100px);
+  @include size(70px);
 
   @include media-breakpoint-up(md) {
-    @include size(150px);
+    @include size(100px);
   }
 }
 
@@ -68,6 +68,7 @@
 
   font-size: 20px;
   font-weight: var(--typography-bold);
+  text-align: center;
 }
 
 .wrapper,
@@ -98,5 +99,22 @@
 
   svg {
     fill: var(--icon);
+  }
+}
+
+.score {
+  display: grid;
+  grid-template-columns: 1fr 20px 1fr;
+  align-items: center;
+  font-size: 32px;
+  text-align: center;
+  font-weight: var(--typography-bold);
+}
+
+.timer {
+  @include flex(center, center);
+
+  span {
+    margin: 0 1px;
   }
 }

@@ -14,6 +14,7 @@
   }
 }
 
+.wrapper,
 .table {
   @include make-spacer('p', 2);
 }
@@ -51,51 +52,52 @@
 
 .cell {
   overflow: hidden;
-  text-align: center;
   white-space: nowrap;
 
   &:nth-child(1) {
     @include make-spacer('pl', 2);
-
-    @include media-breakpoint-up(md) {
-      text-align: left;
-    }
   }
 }
 
-.team {
-  display: grid;
-  grid-template-columns: 1fr 20px 1fr;
-  column-gap: 5px;
+.scoreboard {
+  @include make-spacer('p', 2);
 
-  span {
-    @include ellipsis();
+  & > div {
+    @include make-spacer('px', 2);
+    @include size(100%, 38px);
+    @include flex($align-items: center);
 
-    overflow: hidden;
+    text-align: center;
 
-    &.l {
-      color: var(--text-for-material);
+    div {
+      @include make-spacer('mx', 1);
+
+      flex-shrink: 0;
+      min-width: 50px;
+
+      &:first-child {
+        @include make-spacer('ml', 0);
+
+        flex-grow: 1;
+        text-align: left;
+      }
+
+      &:last-child {
+        @include make-spacer('mr', 0);
+      }
+    }
+
+    &:nth-child(odd) {
+      background-color: var(--primary);
     }
   }
-}
 
-.badge {
-  @include make-spacer('mx', auto);
-  @include flex(center, center);
-  @include size(30px);
-
-  color: var(--white);
-  text-transform: uppercase;
-
-  &.w {
-    background-color: var(--green);
+  p {
+    color: var(--amber);
   }
 
-  &.d {
-    background-color: var(--amber);
-  }
-
-  &.l {
-    background-color: var(--red);
+  svg {
+    @include make-spacer('mx', auto);
+    @include size(24px);
   }
 }

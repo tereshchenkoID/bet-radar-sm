@@ -1,0 +1,60 @@
+@import "../../../scss/config";
+
+.block {
+  overflow: hidden;
+}
+
+.top {
+  text-align: center;
+  //text-transform: capitalize;
+}
+
+.bottom {
+  display: grid;
+  grid-template-columns: 50px 1fr 1fr 50px;
+  column-gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cell {
+  @include size(100%, 6px);
+  @include flex($align-items: center);
+
+  background-color: var(--primary);
+  overflow: hidden;
+
+  div {
+    @include size(100%);
+  }
+
+  &.left {
+
+    div {
+      background-color: var(--brand);
+      transform-origin: 100% 0;
+    }
+  }
+
+  &.right {
+
+    div {
+      background-color: var(--red);
+      transform-origin: 0 50%;
+    }
+  }
+}
+
+.text {
+  text-align: center;
+  font-size: 18px;
+  color: var(--white);
+
+  &.left {
+    text-align: right;
+  }
+
+  &.right {
+    text-align: left;
+  }
+}

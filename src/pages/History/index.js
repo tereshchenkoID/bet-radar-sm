@@ -1,10 +1,13 @@
 import {useState, useEffect} from "react";
 import {useParams} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {useTranslation} from "react-i18next";
+
 import classNames from "classnames";
 
 import {convertTime} from '../../helpers/convertTime'
-
-import axios from 'axios';
+import {setTheme} from "../../helpers/setTheme";
+import {getH2H} from "../../helpers/api";
 
 import Scoreboard from "../../modules/Scoreboard";
 import Navigation from "../../modules/Navigation";
@@ -13,6 +16,7 @@ import Container from "../../components/Container";
 
 import style from './index.module.scss';
 
+
 const checkWinner = (data, home, away, id) => {
     const a = data.split('-')
     let r
@@ -20,9 +24,9 @@ const checkWinner = (data, home, away, id) => {
     const h_i = (home === id) ? 0 : 1
     const a_i = (away === id) ? 0 : 1
 
-    if (a[h_i] > a[a_i])
+    if (parseInt(a[h_i], 10) > parseInt(a[a_i], 10))
         r = 'w'
-    else if(a[a_i] > a[h_i])
+    else if(parseInt(a[h_i], 10) < parseInt(a[a_i], 10))
         r = 'l'
     else
         r = 'd'
@@ -31,23 +35,19 @@ const checkWinner = (data, home, away, id) => {
 }
 
 const History = () => {
+    const { t } = useTranslation()
     const { theme, id } = useParams()
-
-    localStorage.setItem('theme', theme)
-    document.querySelector('html').setAttribute('theme', localStorage.getItem('theme'))
-
-    const home_id = localStorage.getItem('home_id')
-    const away_id = localStorage.getItem('away_id')
-
+    const {h2h} = useSelector((state) => state.h2h)
     const [data, setData] = useState({});
     const [loading, setLoading] = useState(true);
 
+    setTheme(theme)
+
     useEffect(() => {
-        axios.get(`https://matchtracker.live/api/h2h/${id}`)
-            .then(res => {
-                setData(res.data)
-                setLoading(false)
-            })
+        getH2H(`h2h/${id}`).then(data => {
+            setData(data)
+            setLoading(false)
+        })
     }, []);
 
     return (
@@ -64,11 +64,11 @@ const History = () => {
                         :
                             <>
                                 <div className={style.panel}>
-                                    <div className={style.sort}>Head to Head</div>
+                                    <div className={style.sort}>{t('interface.h2h')}</div>
                                     <div className={style.table}>
                                     {
-                                        data.results &&
-                                        data.results.h2h.map((el, idx) =>
+                                        data &&
+                                        data.h2h.map((el, idx) =>
                                             <div
                                                 className={style.row}
                                                 key={idx}
@@ -79,15 +79,15 @@ const History = () => {
                                                 <div className={style.cell}>{convertTime(el.time)}</div>
                                                 <div className={style.cell}>
                                                     <div className={style.team}>
-                                                        <span className={home_id === el.home.id ? style.l : style.d}>{el.home.name}</span>
-                                                        <span>vs</span>
-                                                        <span className={home_id === el.away.id ? style.l : style.d}>{el.away.name}</span>
+                                                        <span className={h2h.home === el.home.id ? style.l : style.d}>{el.home.name}</span>
+                                                        <span>{t('interface.vs')}</span>
+                                                        <span className={h2h.home === el.away.id ? style.l : style.d}>{el.away.name}</span>
                                                     </div>
                                                 </div>
                                                 <div className={style.cell}>
-                                                    <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, home_id)])}>
+                                                    <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, h2h.home)])}>
                                                         {
-                                                            checkWinner(el.ss, el.home.id, el.away.id, home_id)
+                                                            t(`interface.${checkWinner(el.ss, el.home.id, el.away.id, h2h.home)}`)
                                                         }
                                                     </div>
                                                 </div>
@@ -99,11 +99,11 @@ const History = () => {
                                 </div>
 
                                 <div className={style.panel}>
-                                    <div className={style.sort}>Home History</div>
+                                    <div className={style.sort}>{t('interface.home_history')}</div>
                                     <div className={style.table}>
                                         {
-                                            data.results &&
-                                            data.results.home.map((el, idx) =>
+                                            data &&
+                                            data.home.map((el, idx) =>
                                                 <div
                                                     className={style.row}
                                                     key={idx}
@@ -114,15 +114,15 @@ const History = () => {
                                                     <div className={style.cell}>{convertTime(el.time)}</div>
                                                     <div className={style.cell}>
                                                         <div className={style.team}>
-                                                            <span className={home_id === el.home.id ? style.l : style.d}>{el.home.name}</span>
-                                                            <span>vs</span>
-                                                            <span className={home_id === el.away.id ? style.l : style.d}>{el.away.name}</span>
+                                                            <span className={h2h.away === el.home.id ? style.l : style.d}>{el.home.name}</span>
+                                                            <span>{t('interface.vs')}</span>
+                                                            <span className={h2h.away === el.away.id ? style.l : style.d}>{el.away.name}</span>
                                                         </div>
                                                     </div>
                                                     <div className={style.cell}>
-                                                        <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, home_id)])}>
+                                                        <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, h2h.away)])}>
                                                             {
-                                                                checkWinner(el.ss, el.home.id, el.away.id, home_id)
+                                                                t(`interface.${checkWinner(el.ss, el.home.id, el.away.id, h2h.away)}`)
                                                             }
                                                         </div>
                                                     </div>
@@ -134,11 +134,11 @@ const History = () => {
                                 </div>
 
                                 <div className={style.panel}>
-                                    <div className={style.sort}>Away History</div>
+                                    <div className={style.sort}>{t('interface.away_history')}</div>
                                     <div className={style.table}>
                                         {
-                                            data.results &&
-                                            data.results.away.map((el, idx) =>
+                                            data &&
+                                            data.away.map((el, idx) =>
                                                 <div
                                                     className={style.row}
                                                     key={idx}
@@ -149,15 +149,15 @@ const History = () => {
                                                     <div className={style.cell}>{convertTime(el.time)}</div>
                                                     <div className={style.cell}>
                                                         <div className={style.team}>
-                                                            <span className={away_id === el.home.id ? style.l : style.d}>{el.home.name}</span>
-                                                            <span>vs</span>
-                                                            <span className={away_id === el.away.id ? style.l : style.d}>{el.away.name}</span>
+                                                            <span className={h2h.home === el.home.id ? style.l : style.d}>{el.home.name}</span>
+                                                            <span>{t('interface.vs')}</span>
+                                                            <span className={h2h.home === el.away.id ? style.l : style.d}>{el.away.name}</span>
                                                         </div>
                                                     </div>
                                                     <div className={style.cell}>
-                                                        <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, away_id)])}>
+                                                        <div className={classNames(style.badge, style[checkWinner(el.ss, el.home.id, el.away.id, h2h.home)])}>
                                                             {
-                                                                checkWinner(el.ss, el.home.id, el.away.id, away_id)
+                                                                t(`interface.${checkWinner(el.ss, el.home.id, el.away.id, h2h.home)}`)
                                                             }
                                                         </div>
                                                     </div>

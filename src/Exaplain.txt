@@ -1,0 +1,10 @@
+// md 0, tt 0 - Schedule
+// md 0, tt 1 - 1 period
+// md 1, tt 0 - Pause
+// md 1, tt 1 - 2 period
+// md 2, tt 0 - pause before extra time
+// md 2, tt 1 - 1 extratime
+// md 3, tt 0 - pause
+// md 3, tt 1 - 2 extratime
+// md 4, tt 0 - penalties
+// ta [+ 5min]
