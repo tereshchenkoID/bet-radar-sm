@@ -13,7 +13,8 @@
 }
 
 .link {
-  @include make-spacer('px', 4);
+  @include make-spacer('px', 1);
+  @include make-spacer('px', 4, md);
   @include make-spacer('mx', 4);
   @include flex(center, center);
 

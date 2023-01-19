@@ -34,7 +34,7 @@ const Table = () => {
                 setData(data)
                 setLoading(false)
             })
-    }, []);
+    }, [league]);
 
     return (
         <div className={style.block}>
@@ -52,30 +52,20 @@ const Table = () => {
                             data.away.tables.length > 0 &&
                             <>
                                 <div className={style.sort}>
-                                    <button
-                                        className={classNames(style.link, type === 'overall' && style.active)}
-                                        onClick={() => {
-                                            setType('overall')
-                                        }}
-                                    >
-                                        {t('interface.overall')}
-                                    </button>
-                                    <button
-                                        className={classNames(style.link, type === 'home' && style.active)}
-                                        onClick={() => {
-                                            setType('home')
-                                        }}
-                                    >
-                                        {t('interface.home')}
-                                    </button>
-                                    <button
-                                        className={classNames(style.link, type === 'away' && style.active)}
-                                        onClick={() => {
-                                            setType('away')
-                                        }}
-                                    >
-                                        {t('interface.away')}
-                                    </button>
+                                    {
+                                        Object.keys(data).map(key =>
+                                            key !== 'season' &&
+                                            <button
+                                                key={key}
+                                                className={classNames(style.link, type === key && style.active)}
+                                                onClick={() => {
+                                                    setType(key)
+                                                }}
+                                            >
+                                                {t(`interface.${key}`)}
+                                            </button>
+                                        )
+                                    }
                                 </div>
                                 <div className={style.table}>
                                     <div className={classNames(style.row, style.head)}>

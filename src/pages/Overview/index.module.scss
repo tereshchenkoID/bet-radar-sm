@@ -51,16 +51,20 @@
 }
 
 .cell {
+  @include make-spacer('pl', 2);
+
   overflow: hidden;
   white-space: nowrap;
+}
 
-  &:nth-child(1) {
-    @include make-spacer('pl', 2);
-  }
+.scroll {
+  overflow-x: auto;
 }
 
 .scoreboard {
   @include make-spacer('p', 2);
+
+  min-width: 600px;
 
   & > div {
     @include make-spacer('px', 2);
@@ -70,7 +74,7 @@
     text-align: center;
 
     div {
-      @include make-spacer('mx', 1);
+      @include make-spacer('mx', 1, md);
 
       flex-shrink: 0;
       min-width: 50px;

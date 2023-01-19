@@ -48,7 +48,13 @@
   @include make-spacer('mr', 2);
   @include size(20px);
 
+  display: none;
+
   svg {
     fill: var(--icon);
+  }
+
+  @include media-breakpoint-up(md) {
+    display: block;
   }
 }

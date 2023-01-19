@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 import {convertTime} from '../../helpers/convertTime'
@@ -20,6 +20,7 @@ const Scoreboard = () => {
     const {id} = useParams()
     const { t } = useTranslation()
     const dispatch = useDispatch()
+    const navigate = useNavigate();
     const {event} = useSelector((state) => state.event);
     const [loading, setLoading] = useState(true);
 
@@ -27,16 +28,19 @@ const Scoreboard = () => {
 
         checkData(event) &&
             getEvent(`event/${id}`).then(data => {
-                console.log(data)
+                if (data) {
+                    dispatch(setEvent(data))
+                    dispatch(setLeague(data.league))
+                    dispatch(setH2h({
+                        home: data.away.id,
+                        away: data.home.id
+                    }))
 
-                dispatch(setEvent(data))
-                dispatch(setLeague(data.league))
-                dispatch(setH2h({
-                    home: data.away.id,
-                    away: data.home.id
-                }))
-
-                setLoading(false)
+                    setLoading(false)
+                }
+                else {
+                    navigate('/')
+                }
             })
     }, []);
 

@@ -6,15 +6,19 @@
 
 .top {
   text-align: center;
-  //text-transform: capitalize;
 }
 
 .bottom {
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 50px;
-  column-gap: 10px;
+  grid-template-columns: 30px 1fr 1fr 30px;
+  column-gap: 5px;
   justify-content: center;
   align-items: center;
+
+  @include media-breakpoint-up(md) {
+    grid-template-columns: 50px 1fr 1fr 50px;
+    column-gap: 10px;
+  }
 }
 
 .cell {
