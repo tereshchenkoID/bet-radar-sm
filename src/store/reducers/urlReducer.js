@@ -1,23 +1,23 @@
-import { TYPES } from "../actionTypes";
+import { TYPES } from "store/actionTypes";
 
 const initialState = {
-    h2h: {}
+    url: {}
 };
 
-const h2hReducer = (state = initialState, action) => {
+const urlReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TYPES.GET_H2H:
+        case TYPES.GET_URL:
             return {
                 ...state
             };
-        case TYPES.SET_H2H:
+        case TYPES.SET_URL:
             return {
                 ...state,
-                h2h: action.payload
+                url: action.payload
             };
         default:
             return state;
     }
 };
 
-export default h2hReducer;
+export default urlReducer;

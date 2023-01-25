@@ -1,51 +1,18 @@
-import {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
-import {convertTime} from '../../helpers/convertTime'
-import {convertTimer} from '../../helpers/convertTimer'
-import {getEvent} from "../../helpers/api";
-import {checkData} from "../../helpers/checkData"
+import {convertTime} from 'helpers/convertTime'
+import {convertTimer} from 'helpers/convertTimer'
+import {checkData} from "helpers/checkData"
+
+import Loader from "components/Loader";
 
 import style from './index.module.scss';
 
-import {setEvent} from "../../store/actions/eventAction";
-import {setLeague} from "../../store/actions/leagueAction";
-import {setH2h} from "../../store/actions/h2hAction";
-
-import Loader from "../../components/Loader";
-
-const Scoreboard = () => {
-    const {id} = useParams()
+const Scoreboard = ({event}) => {
     const { t } = useTranslation()
-    const dispatch = useDispatch()
-    const navigate = useNavigate();
-    const {event} = useSelector((state) => state.event);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-
-        checkData(event) &&
-            getEvent(`event/${id}`).then(data => {
-                if (data) {
-                    dispatch(setEvent(data))
-                    dispatch(setLeague(data.league))
-                    dispatch(setH2h({
-                        home: data.away.id,
-                        away: data.home.id
-                    }))
-
-                    setLoading(false)
-                }
-                else {
-                    navigate('/')
-                }
-            })
-    }, []);
 
     return (
-            (loading && checkData(event))
+            (checkData(event))
                 ?
                     <Loader />
                 :

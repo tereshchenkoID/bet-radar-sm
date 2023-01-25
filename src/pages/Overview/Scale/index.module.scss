@@ -1,4 +1,4 @@
-@import "../../../scss/config";
+@import "scss/config";
 
 .block {
   overflow: hidden;
@@ -52,7 +52,6 @@
 .text {
   text-align: center;
   font-size: 18px;
-  color: var(--white);
 
   &.left {
     text-align: right;

@@ -1,16 +1,18 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, compose, applyMiddleware } from "redux";
+import thunk from 'redux-thunk';
 
-import eventReducer from "./reducers/eventReducer";
-import h2hReducer from "./reducers/h2hReducer";
-import leagueReducer from "./reducers/leagueReducer";
+import urlReducer from "./reducers/urlReducer";
+import eventMatchReducer from "./reducers/eventMatchReducer";
 
 const allReducer = combineReducers({
-    event: eventReducer,
-    h2h: h2hReducer,
-    league: leagueReducer
+    url: urlReducer,
+    eventMatch: eventMatchReducer,
 });
 
 
-const store = createStore(allReducer)
+const composeEnhancers = process.env.NODE_ENV !== 'production' && typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+const middleware = applyMiddleware(thunk);
+const store = createStore(allReducer, composeEnhancers(middleware))
 
 export default store;
+

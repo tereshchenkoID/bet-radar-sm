@@ -1,16 +1,16 @@
-import { TYPES } from "../actionTypes";
+import { TYPES } from "store/actionTypes";
 
 const initialState = {
     event: {}
 };
 
-const eventReducer = (state = initialState, action) => {
+const eventMatchReducer = (state = initialState, action) => {
     switch (action.type) {
-        case TYPES.GET_EVENT:
+        case TYPES.GET_EVENT_MATCH:
             return {
                 ...state
             };
-        case TYPES.SET_EVENT:
+        case TYPES.SET_EVENT_MATCH:
             return {
                 ...state,
                 event: action.payload
@@ -20,4 +20,4 @@ const eventReducer = (state = initialState, action) => {
     }
 };
 
-export default eventReducer;
+export default eventMatchReducer;

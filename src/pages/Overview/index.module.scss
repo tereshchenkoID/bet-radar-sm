@@ -1,4 +1,4 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
   @include make-spacer('mb', 4)
@@ -17,6 +17,14 @@
 .wrapper,
 .table {
   @include make-spacer('p', 2);
+}
+
+.table {
+  @include flex($direction: column);
+
+  &.reverse {
+    flex-direction: column-reverse;
+  }
 }
 
 .sort {
@@ -58,6 +66,7 @@
 }
 
 .scroll {
+  overflow-y: hidden;
   overflow-x: auto;
 }
 
@@ -80,10 +89,17 @@
       min-width: 50px;
 
       &:first-child {
+        @include flex($align-items: center);
         @include make-spacer('ml', 0);
 
         flex-grow: 1;
         text-align: left;
+
+        .logo {
+          @include size(20px);
+
+          flex-grow: unset;
+        }
       }
 
       &:last-child {

@@ -1,15 +1,16 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
-  @include flex($align-items: center);
-  @include make-spacer('mx', auto);
-
-  background-color: var(--material);
-  border-bottom: 1px solid var(--border);
-  height: 45px;
+  position: relative;
 }
 
-.wrapper {
-  @include flex(space-between, center);
-  @include size(100%, 45px);
+.top,
+.bottom {
+  background-color: var(--material);
+}
+
+.top {
+  @include make-spacer('p', 2);
+
+  border-bottom: 1px solid var(--border);
 }

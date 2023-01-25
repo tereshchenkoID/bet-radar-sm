@@ -1,14 +1,9 @@
-@import "../../scss/config";
+@import "scss/config";
 
 .block {
-  @include make-spacer('mb', 4);
-
-  background-color: var(--material);
-}
-
-.wrapper {
   @include flex($align-items: center);
-  @include size(100%, 45px);
+
+  height: 45px;
 }
 
 .link {

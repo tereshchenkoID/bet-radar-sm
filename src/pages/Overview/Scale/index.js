@@ -25,7 +25,6 @@ const getPercent = (home, away) => {
     return r
 }
 
-
 const Scale = ({text, home, away}) => {
     const { t } = useTranslation();
 
