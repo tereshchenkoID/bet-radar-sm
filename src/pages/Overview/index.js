@@ -12,10 +12,36 @@ import {checkData} from "helpers/checkData";
 import Scoreboard from "modules/Scoreboard";
 import Container from "components/Container";
 import Loader from "components/Loader";
-import Icon from "components/Icon";
 import Scale from "./Scale";
 
+import Table1 from "./1";   // Football
+import Table13 from "./13"; // Tennis
+import Table17 from "./17"; // Hockey
+import Table18 from "./18"; // Basketball
+import Table78 from "./78"; // Handball
+import Table91 from "./91"; // Volleyball
+
 import style from './index.module.scss';
+
+const getTable = (event) => {
+
+    switch (event.sport_id) {
+        case '1':
+            return <Table1 data={event} />
+        case '13':
+            return <Table13 data={event} />
+        case '17':
+            return <Table17 data={event} />
+        case '18':
+            return <Table18 data={event} />
+        case '78':
+            return <Table78 data={event} />
+        case '91':
+            return <Table91 data={event} />
+        default:
+            return <Table18 data={event} />
+    }
+}
 
 const Overview = () => {
     let url = useParams()
@@ -25,10 +51,12 @@ const Overview = () => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        dispatch(setUrl(url))
-        dispatch(loadEventMatchData(url.id)).then(() => {
-            setLoading(false)
-        })
+        if (loading) {
+            dispatch(setUrl(url))
+            dispatch(loadEventMatchData(url.id)).then(() => {
+                setLoading(false)
+            })
+        }
     }, []);
 
     return (
@@ -39,6 +67,9 @@ const Overview = () => {
                         <Loader />
                     :
                     <>
+                        {
+                            console.log(event)
+                        }
                         <Container>
                             <Scoreboard event={event} />
                         </Container>
@@ -46,87 +77,7 @@ const Overview = () => {
                             <div className={style.panel}>
                                 <div className={style.sort}>{t('interface.stats')}</div>
                                 {
-                                    event.events &&
-                                    <div className={style.scroll}>
-                                        <div className={style.scoreboard}>
-                                            <div>
-                                                <div />
-                                                {
-                                                    Object.keys(event.scores).map(key =>
-                                                        event.scores[key].home &&
-                                                        <div key={key}>
-                                                            {key} {t('interface.half')}
-                                                        </div>
-                                                    )
-                                                }
-                                                <div>{t('interface.score')}</div>
-                                                <div>
-                                                    <Icon id={'corner'} />
-                                                </div>
-                                                <div>
-                                                    <Icon id={'score'} />
-                                                </div>
-                                                <div>
-                                                    <Icon id={'yellow-card'} />
-                                                </div>
-                                                <div>
-                                                    <Icon id={'red-card'} />
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <div className={style.logo}>
-                                                        <img
-                                                            src={`https://www.matchtracker.live/images/team/b/${event.home.image_id}.png`}
-                                                            alt={event.home.name}
-                                                        />
-                                                    </div>
-                                                    {event.home.name}
-                                                </div>
-                                                {
-                                                    Object.keys(event.scores).map(key =>
-                                                        event.scores[key].home &&
-                                                        <div key={key}>
-                                                            {event.scores[key].home}
-                                                        </div>
-                                                    )
-                                                }
-                                                <div>
-                                                    <p>{event.ss.split('-')[0]}</p>
-                                                </div>
-                                                <div>{event.stats.corners[0]}</div>
-                                                <div>{event.stats.penalties[0]}</div>
-                                                <div>{event.stats.yellowcards[0]}</div>
-                                                <div>{event.stats.redcards[0]}</div>
-                                            </div>
-                                            <div>
-                                                <div>
-                                                    <div className={style.logo}>
-                                                        <img
-                                                            src={`https://www.matchtracker.live/images/team/b/${event.away.image_id}.png`}
-                                                            alt={event.away.name}
-                                                        />
-                                                    </div>
-                                                    {event.away.name}
-                                                </div>
-                                                {
-                                                    Object.keys(event.scores).map(key =>
-                                                        event.scores[key].away &&
-                                                        <div key={key}>
-                                                            {event.scores[key].away}
-                                                        </div>
-                                                    )
-                                                }
-                                                <div>
-                                                    <p>{event.ss.split('-')[1]}</p>
-                                                </div>
-                                                <div>{event.stats.corners[1]}</div>
-                                                <div>{event.stats.penalties[1]}</div>
-                                                <div>{event.stats.yellowcards[1]}</div>
-                                                <div>{event.stats.redcards[1]}</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    getTable(event)
                                 }
                             </div>
                             {
@@ -158,13 +109,7 @@ const Overview = () => {
                                                     key={idx}
                                                     className={style.row}
                                                 >
-                                                    <div className={style.cell}>
-                                                        {el.text.split('\' -')[0]}
-                                                        {el.text.split('\' -').length > 1 && '\''}
-                                                    </div>
-                                                    <div className={style.cell}>
-                                                        {el.text.split('\' -')[1]}
-                                                    </div>
+                                                    <div className={style.cell}>{el.text}</div>
                                                 </div>
                                             )
                                         }

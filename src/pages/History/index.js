@@ -45,19 +45,21 @@ const History = () => {
     const [h2h, setH2H] = useState({})
 
     useEffect(() => {
-        dispatch(setUrl(url))
-        checkData(event) && dispatch(loadEventMatchData(url.id))
+        if (loading) {
+            dispatch(setUrl(url))
+            checkData(event) && dispatch(loadEventMatchData(url.id))
 
-        fetchData(`https://matchtracker.live/api/h2h/${url.id}`).then((data) => {
-            setData(data.results)
-            setLoading(false)
-        })
+            fetchData(`https://matchtracker.live/api/h2h/${url.id}`).then((data) => {
+                setData(data.results)
+                setLoading(false)
+            })
 
-        !checkData(event) &&
-        setH2H ({
-            home: event.home.id,
-            away: event.away.id
-        })
+            !checkData(event) &&
+            setH2H ({
+                home: event.home.id,
+                away: event.away.id
+            })
+        }
 
     }, [event]);
 
