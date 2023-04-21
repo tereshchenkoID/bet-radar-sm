@@ -32,7 +32,7 @@ const Live = () => {
 
         sport.map(el => {
             if (el !== 'end') {
-                fetchData(`https://matchtracker.live/stats/${el}/`).then((data) => {
+                fetchData(`stats/${el}/`).then((data) => {
                     data && setData(prev => [...prev, data])
                 })
             }

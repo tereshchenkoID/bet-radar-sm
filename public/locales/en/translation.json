@@ -61,6 +61,8 @@
     "diff": "diff",
     "pts": "pts",
     "vs": "vs",
-    "finish": "finish"
+    "finish": "finish",
+    "total": "total",
+    "prematch_analytics": "Prematch Analytics"
   }
 }

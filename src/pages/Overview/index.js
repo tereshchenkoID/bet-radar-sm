@@ -12,6 +12,7 @@ import {checkData} from "helpers/checkData";
 import Scoreboard from "modules/Scoreboard";
 import Container from "components/Container";
 import Loader from "components/Loader";
+import Analytics from "./Analytics";
 import Scale from "./Scale";
 
 import Table1 from "./1";   // Football
@@ -67,13 +68,8 @@ const Overview = () => {
                         <Loader />
                     :
                     <>
-                        {
-                            console.log(event)
-                        }
                         <Container>
                             <Scoreboard event={event} />
-                        </Container>
-                        <Container>
                             <div className={style.panel}>
                                 <div className={style.sort}>{t('interface.stats')}</div>
                                 {
@@ -113,6 +109,18 @@ const Overview = () => {
                                                 </div>
                                             )
                                         }
+                                    </div>
+                                </div>
+                            }
+
+                            {
+                                event.sport_id !== '13' &&
+                                <div className={style.panel}>
+                                    <div className={style.sort}>{t('interface.prematch_analytics')}</div>
+                                    <div className={style.scroll}>
+                                        <div className={style.table}>
+                                            <Analytics event={event} />
+                                        </div>
                                     </div>
                                 </div>
                             }

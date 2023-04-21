@@ -1,0 +1,49 @@
+@import "scss/config";
+
+.block {
+  overflow: hidden;
+  min-width: 650px;
+}
+
+.row {
+  @include make-spacer('py', 2);
+  @include make-spacer('py', 0, md);
+
+  display: grid;
+  grid-template-columns: 80px repeat(4, 1fr);
+  justify-content: center;
+  align-items: center;
+  min-height: 38px;
+
+  &:nth-child(odd) {
+    background-color: var(--primary);
+  }
+}
+
+.cell {
+  @include flex(center, center);
+
+  overflow: hidden;
+  text-align: center;
+  text-transform: capitalize;
+
+  div {
+    @include size(100%);
+  }
+
+  &.left {
+
+    div {
+      background-color: var(--brand);
+      transform-origin: 100% 0;
+    }
+  }
+
+  &.right {
+
+    div {
+      background-color: var(--red);
+      transform-origin: 0 50%;
+    }
+  }
+}

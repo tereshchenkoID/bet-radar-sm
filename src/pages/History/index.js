@@ -17,7 +17,6 @@ import Container from "components/Container";
 
 import style from './index.module.scss';
 
-
 const checkWinner = (data, home, away, id) => {
     const a = data.split('-')
     let r
@@ -49,7 +48,7 @@ const History = () => {
             dispatch(setUrl(url))
             checkData(event) && dispatch(loadEventMatchData(url.id))
 
-            fetchData(`https://matchtracker.live/api/h2h/${url.id}`).then((data) => {
+            fetchData(`api/h2h/${url.id}`).then((data) => {
                 setData(data.results)
                 setLoading(false)
             })

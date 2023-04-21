@@ -33,7 +33,7 @@ const Table = () => {
 
             !checkData(event) && setLeague(event.league.id)
 
-            league && fetchData(`https://matchtracker.live/api/table/${league}`).then((data) => {
+            league && fetchData(`api/table/${league}`).then((data) => {
                 setData(data.results)
                 setLoading(false)
 

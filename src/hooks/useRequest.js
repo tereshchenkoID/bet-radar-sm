@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const server = axios.create({
-  baseURL: `https://stats.fn.sportradar.com/betradar/en/Europe:Berlin/gismo/`,
+  baseURL: `https://matchtracker.live/`,
 })
 
 export const useRequest = () => {

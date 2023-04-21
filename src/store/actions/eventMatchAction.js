@@ -6,7 +6,7 @@ export const loadEventMatchData = (id) => async dispatch => {
     const { get } = useRequest();
 
     try {
-        const data = await get(`https://matchtracker.live/api/event/${id}`)
+        const data = await get(`api/event/${id}`)
 
         dispatch({
             type: TYPES.SET_EVENT_MATCH,

@@ -11,12 +11,7 @@ const Logo = () => {
             to={`/live/${url.language}/${url.theme}`}
             className={style.block}
             aria-label={'Overview'}
-        >
-            <img
-                src={"https://d29bnxtiec58nc.cloudfront.net/sites/image-16737544013081.svg"}
-                alt={"Logo"}
-            />
-        </NavLink>
+        />
     );
 }
 

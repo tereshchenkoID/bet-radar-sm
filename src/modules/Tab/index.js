@@ -46,7 +46,6 @@ const Tab = () => {
                 </span>
                 <span>{t('interface.h2h')}</span>
             </NavLink>
-
             {
                 url.sport !== '13' &&
                 <NavLink
