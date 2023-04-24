@@ -4,4 +4,11 @@
   @include size(146px, 23px);
 
   display: block;
+
+  img {
+    @include size(100%);
+
+    display: block;
+    object-fit: cover;
+  }
 }

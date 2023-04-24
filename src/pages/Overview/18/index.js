@@ -2,13 +2,6 @@ import {useTranslation} from "react-i18next";
 
 import style from './index.module.scss';
 
-const table = (data) => {
-
-
-    return <>
-           </>
-}
-
 const Table = ({data}) => {
     const { t } = useTranslation()
 
@@ -22,29 +15,29 @@ const Table = ({data}) => {
                                 data.time_status !== '3' &&
                                     Object.keys(data.scores).length === 7
                                     ?
-                                        `${t('interface.extra_time')}`
+                                        `${t('stats.extra_time')}`
                                     :
-                                        `${Object.keys(data.scores).length - 2} ${t('interface.quarter')}`
+                                        `${Object.keys(data.scores).length - 2} ${t('stats.quarter')}`
                             }
                         </div>
                         <div className={style.cell}>
                             <strong>1</strong>
-                            <span>{t('interface.quarter')}</span>
+                            <span>{t('stats.quarter')}</span>
                         </div>
                         <div className={style.cell}>
                             <strong>2</strong>
-                            <span>{t('interface.quarter')}</span>
+                            <span>{t('stats.quarter')}</span>
                         </div>
                         <div className={style.cell}>
                             <span>{t('interface.half')}</span>
                         </div>
                         <div className={style.cell}>
                             <strong>3</strong>
-                            <span>{t('interface.quarter')}</span>
+                            <span>{t('stats.quarter')}</span>
                         </div>
                         <div className={style.cell}>
                             <strong>4</strong>
-                            <span>{t('interface.quarter')}</span>
+                            <span>{t('stats.quarter')}</span>
                         </div>
                         {
                             data.scores['6'] &&

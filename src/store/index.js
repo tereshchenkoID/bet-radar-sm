@@ -3,10 +3,14 @@ import thunk from 'redux-thunk';
 
 import urlReducer from "./reducers/urlReducer";
 import eventMatchReducer from "./reducers/eventMatchReducer";
+import configReducer from "./reducers/configReducer";
+import leagueTableReducer from "./reducers/leagueTableReducer";
 
 const allReducer = combineReducers({
     url: urlReducer,
+    config: configReducer,
     eventMatch: eventMatchReducer,
+    table: leagueTableReducer
 });
 
 

@@ -18,7 +18,7 @@ const Table = ({data}) => {
                         <div className={style.cell}>
                             {
                                 data.time_status !== '3' &&
-                                `${Object.keys(data.scores).length} ${t('interface.set')}`
+                                `${Object.keys(data.scores).length} ${t('stats.set')}`
                             }
                         </div>
                         {
@@ -28,12 +28,12 @@ const Table = ({data}) => {
                                     key={key}
                                 >
                                     <strong>{key}</strong>
-                                    <span>{t('interface.set')}</span>
+                                    <span>{t('stats.set')}</span>
                                 </div>
                             )
                         }
-                        <div className={style.cell}>{t('interface.points')}</div>
-                        <div className={style.cell}>{t('interface.sets')}</div>
+                        <div className={style.cell}>{t('stats.points')}</div>
+                        <div className={style.cell}>{t('stats.sets')}</div>
                     </div>
                     <div className={style.row}>
                         <div className={style.cell}>

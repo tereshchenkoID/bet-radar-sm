@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 
 import {loadEventMatchData} from "store/actions/eventMatchAction";
+import {leagueTableAction} from "store/actions/leagueTableAction";
 import {setUrl} from "store/actions/urlAction";
 import {convertTime} from 'helpers/convertTime'
 import {checkData} from 'helpers/checkData'
@@ -46,21 +47,33 @@ const History = () => {
     useEffect(() => {
         if (loading) {
             dispatch(setUrl(url))
-            checkData(event) && dispatch(loadEventMatchData(url.id))
+
+            if (checkData(event)) {
+                dispatch(loadEventMatchData(url.id)).then((json) => {
+                    dispatch(leagueTableAction(json.results[0].league.id))
+
+                    setH2H ({
+                        home: json.results[0].home.id,
+                        away: json.results[0].away.id
+                    })
+                })
+            }
+            else {
+                dispatch(leagueTableAction(event.league.id))
+
+                setH2H ({
+                    home: event.home.id,
+                    away: event.away.id
+                })
+            }
 
             fetchData(`api/h2h/${url.id}`).then((data) => {
                 setData(data.results)
                 setLoading(false)
             })
-
-            !checkData(event) &&
-            setH2H ({
-                home: event.home.id,
-                away: event.away.id
-            })
         }
 
-    }, [event]);
+    }, []);
 
     return (
         <div className={style.block}>

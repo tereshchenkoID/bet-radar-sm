@@ -13,7 +13,7 @@ const Table = ({data}) => {
                         <div className={style.cell}>
                             {
                                 data.time_status !== '3' &&
-                                `${Object.keys(data.scores).length - 1} ${t('interface.period')}`
+                                `${Object.keys(data.scores).length - 1} ${t('stats.period')}`
                             }
                         </div>
                         {
@@ -29,7 +29,7 @@ const Table = ({data}) => {
                                         :
                                             <>
                                                 <strong>{key}</strong>
-                                                <span>{t('interface.period')}</span>
+                                                <span>{t('stats.period')}</span>
                                             </>
                                     }
                                 </div>

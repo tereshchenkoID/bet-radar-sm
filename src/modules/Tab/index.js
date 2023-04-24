@@ -7,8 +7,18 @@ import classNames from "classnames";
 import style from './index.module.scss';
 
 const Tab = () => {
-    const { t } = useTranslation();
-    const {url} = useSelector((state) => state.url);
+    const { t } = useTranslation()
+    const {url} = useSelector((state) => state.url)
+    const {table} = useSelector((state) => state.table)
+
+    const checkTable = (data) => {
+        if (data) {
+            return (data.away.tables.length === 0 && data.home.tables.length === 0 && data.overall.tables.length === 0)
+        }
+        else {
+            return true
+        }
+    }
 
     return (
         <div className={style.block}>
@@ -47,6 +57,7 @@ const Tab = () => {
                 <span>{t('interface.h2h')}</span>
             </NavLink>
             {
+                !checkTable(table) &&
                 url.sport !== '13' &&
                 <NavLink
                     to={`/${url.language}/${url.theme}/rh/${url.sport}/${url.id}`}

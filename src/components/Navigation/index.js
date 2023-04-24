@@ -1,14 +1,14 @@
 import {useSelector} from "react-redux";
 import checkData from "helpers/checkData";
 
-import Container from "../Container";
-import Logo from "../Logo";
 import Tab from "modules/Tab";
+import Logo from "../Logo";
+import Container from "../Container";
 
 import style from './index.module.scss';
 
 const Navigation = () => {
-    const {url} = useSelector((state) => state.url);
+    const {url} = useSelector((state) => state.url)
 
     return (
         <nav className={style.block}>

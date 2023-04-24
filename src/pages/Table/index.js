@@ -6,8 +6,8 @@ import {useSelector, useDispatch} from "react-redux";
 import classNames from "classnames";
 
 import {loadEventMatchData} from "store/actions/eventMatchAction";
+import {leagueTableAction} from "store/actions/leagueTableAction";
 import {setUrl} from "store/actions/urlAction";
-import {fetchData} from "helpers/api";
 import {checkData} from "helpers/checkData"
 
 import Loader from "components/Loader";
@@ -24,24 +24,19 @@ const Table = () => {
     const [data, setData] = useState({})
     const [loading, setLoading] = useState(true)
     const [type, setType] = useState('overall')
-    const [league, setLeague] = useState()
 
     useEffect(() => {
         if (loading) {
             dispatch(setUrl(url))
-            checkData(event) && dispatch(loadEventMatchData(url.id))
-
-            !checkData(event) && setLeague(event.league.id)
-
-            league && fetchData(`api/table/${league}`).then((data) => {
-                setData(data.results)
-                setLoading(false)
-
-                console.log(data.results)
+            dispatch(loadEventMatchData(url.id)).then((json) => {
+                dispatch(leagueTableAction(json.results[0].league.id)).then((result) => {
+                    setData(result.results)
+                    setLoading(false)
+                })
             })
         }
 
-    }, [event, league]);
+    }, []);
 
     return (
         <div className={style.block}>

@@ -1,30 +1,48 @@
-import {Suspense, useEffect} from "react";
+import {Suspense, useEffect, useState} from "react";
 import {Route, Routes} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useTranslation} from "react-i18next";
 
 import classNames from "classnames";
 
-import checkData from "helpers/checkData";
-
 import {router} from "router";
+
+import {checkData} from "helpers/checkData";
 
 import Navigation from "components/Navigation";
 import Loader from "components/Loader";
 
+import {configData} from "store/actions/configAction";
+
 import style from './index.module.scss';
 
 const App = () => {
-    const {url} = useSelector((state) => state.url);
-    const { i18n } = useTranslation();
+    const dispatch = useDispatch()
+    const {i18n} = useTranslation();
+    const {url} = useSelector((state) => state.url)
+    const {config} = useSelector((state) => state.config)
+    const [init, setInit] = useState(true)
 
     const changeLanguage = (language) => {
-        i18n.changeLanguage(language);
+
+        i18n.changeLanguage(language, (err, t) => {
+            if (err) {
+                i18n.changeLanguage('en')
+                localStorage.setItem("url", JSON.stringify({url: 'en'}))
+                setInit(false)
+            }
+        });
     };
 
     useEffect(() => {
-        !checkData(url) && changeLanguage(url.language)
-    }, [url]);
+        if (init) {
+            !checkData(url) && changeLanguage(url.language)
+        }
+    }, [url.language]);
+
+    useEffect(() => {
+        checkData(config) && dispatch(configData())
+    }, []);
 
     return (
         <div

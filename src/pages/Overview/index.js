@@ -6,6 +6,7 @@ import {useTranslation} from "react-i18next";
 import classNames from "classnames";
 
 import {loadEventMatchData} from "store/actions/eventMatchAction";
+import {leagueTableAction} from "store/actions/leagueTableAction";
 import {setUrl} from "store/actions/urlAction";
 import {checkData} from "helpers/checkData";
 
@@ -54,7 +55,9 @@ const Overview = () => {
     useEffect(() => {
         if (loading) {
             dispatch(setUrl(url))
-            dispatch(loadEventMatchData(url.id)).then(() => {
+
+            dispatch(loadEventMatchData(url.id)).then((json) => {
+                dispatch(leagueTableAction(json.results[0].league.id))
                 setLoading(false)
             })
         }
@@ -67,7 +70,6 @@ const Overview = () => {
                     ?
                         <Loader />
                     :
-                    <>
                         <Container>
                             <Scoreboard event={event} />
                             <div className={style.panel}>
@@ -77,7 +79,7 @@ const Overview = () => {
                                 }
                             </div>
                             {
-                                event.stats &&
+                                !checkData(event.stats) &&
                                 <div className={style.panel}>
                                     <div className={style.sort}>{t('interface.events')}</div>
                                     <div className={style.table}>
@@ -112,7 +114,6 @@ const Overview = () => {
                                     </div>
                                 </div>
                             }
-
                             {
                                 event.sport_id !== '13' &&
                                 <div className={style.panel}>
@@ -125,7 +126,6 @@ const Overview = () => {
                                 </div>
                             }
                         </Container>
-                    </>
             }
         </div>
     );

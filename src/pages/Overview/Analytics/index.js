@@ -3,8 +3,6 @@ import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {useParams} from "react-router-dom";
 
-import Loader from "components/Loader";
-
 import {setUrl} from "store/actions/urlAction";
 import {fetchData} from "helpers/api";
 
@@ -50,13 +48,13 @@ const getAverageStats = (data, h2h, side, type) => {
         return true
     })
 
-    return c / data.length
+    return (c / data.length) || 0
 }
 
 const Analytics = ({event}) => {
     const { t } = useTranslation();
-    const dispatch = useDispatch()
     let url = useParams()
+    const dispatch = useDispatch()
     const [loading, setLoading] = useState(true)
     const [avg, setAvg] = useState(null)
 
@@ -95,25 +93,25 @@ const Analytics = ({event}) => {
                 !loading &&
                     <>
                         <div className={style.row}>
-                            <div className={style.cell}>-</div>
-                            <div className={style.cell}>AVG. HALF GOALS</div>
-                            <div className={style.cell}>AVG. GOALS</div>
-                            <div className={style.cell}>AVG. HALF LOSTS</div>
-                            <div className={style.cell}>AVG. LOSTS</div>
+                            <div className={style.cell} />
+                            <div className={style.cell}>{t('stats.avg_half_goals')}</div>
+                            <div className={style.cell}>{t('stats.avg_goals')}</div>
+                            <div className={style.cell}>{t('stats.avg_half_losts')}</div>
+                            <div className={style.cell}>{t('stats.avg_losts')}</div>
                         </div>
                         <div className={style.row}>
                             <div className={style.cell}>{t('interface.home')}</div>
-                            <div className={style.cell}>{avg.home.HALF_GOALS}</div>
-                            <div className={style.cell}>{avg.home.GOALS}</div>
-                            <div className={style.cell}>{avg.home.HALF_LOSTS}</div>
-                            <div className={style.cell}>{avg.home.LOSTS}</div>
+                            <div className={style.cell}>{avg.home.HALF_GOALS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.home.GOALS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.home.HALF_LOSTS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.home.LOSTS.toFixed(2)}</div>
                         </div>
                         <div className={style.row}>
                             <div className={style.cell}>{t('interface.away')}</div>
-                            <div className={style.cell}>{avg.away.HALF_GOALS}</div>
-                            <div className={style.cell}>{avg.away.GOALS}</div>
-                            <div className={style.cell}>{avg.away.HALF_LOSTS}</div>
-                            <div className={style.cell}>{avg.away.LOSTS}</div>
+                            <div className={style.cell}>{avg.away.HALF_GOALS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.away.GOALS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.away.HALF_LOSTS.toFixed(2)}</div>
+                            <div className={style.cell}>{avg.away.LOSTS.toFixed(2)}</div>
                         </div>
                         <div className={style.row}>
                             <div className={style.cell}>{t('interface.total')}</div>
